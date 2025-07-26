@@ -1,0 +1,22 @@
+# Core
+torch
+torchvision
+torchaudio
+
+# GNN support (later step)
+torch-geometric
+
+# Data handling
+pandas
+numpy
+
+# Visualization
+matplotlib
+networkx
+pyvis
+
+# For notebooks
+jupyter
+
+# Optional: Web interface
+streamlit
