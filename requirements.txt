@@ -9,6 +9,7 @@ torch-geometric
 # Data handling
 pandas
 numpy
+random
 
 # Visualization
 matplotlib

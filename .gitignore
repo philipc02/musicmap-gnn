@@ -13,3 +13,8 @@ __pycache__/
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Ignore large audio files folder
+/data/fma_small/
+# Keep large csv files only locally
+data/fma_metadata/*.csv
