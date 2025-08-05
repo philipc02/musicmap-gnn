@@ -3,6 +3,8 @@ import torch
 from torch_geometric.data import Data
 import numpy as np
 import random
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
 
 ### Day 3: graph construction using fma metadata
 
@@ -67,3 +69,24 @@ edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()  # shap
 data = Data(x=x, edge_index=edge_index, y=y) # x for node features, y for node label (genre), edge_index for connections between nodes (same artist)
 
 print(data)
+
+### Day 4: GCN model
+
+## Define the GCN model class
+
+class GCN(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels):
+        super().__init__()
+        self.conv1 = GCNConv(in_channels, hidden_channels)  # in_channels: number of input features per node
+        self.conv2 = GCNConv(hidden_channels, out_channels) # hidden_channels: number of hidden neurons in the first GCN layer (64 is a common choice); out_channels: number of output classes (5 here, because we are classifying into 5 genres)
+
+    def forward(self, x, edge_index):   # takes node features and graph structure
+        x = self.conv1(x, edge_index)   # graph convolution
+        x = F.relu(x)   # ReLU (Rectified Linear Unit): activation function between layers in NN -> ReLU(x) = max(0, x) (if value is positive, keep, else set to zero) => helps network learn nonlinear patterns
+        x = self.conv2(x, edge_index)   # graph convolution
+        return x
+
+## Instantiate the model
+
+model = GCN(in_channels=data.num_node_features, hidden_channels=64, out_channels=5) # -> since we are classifying into 5 genres, the model needs to output 5 logits (raw, unnormalized output values from the final layer of a model, just before applying f.ex. softmax) per node
+print(model)    # logits will be passed to F.cross_entropy() during training to compute the loss
