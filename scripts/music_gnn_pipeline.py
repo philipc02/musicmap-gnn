@@ -158,3 +158,7 @@ for epoch in range(1, 201): # train for 200 epochs
     train_acc, val_acc, test_acc = test(model, data)
     if epoch % 10 == 0 or epoch == 1:   # print log for every tenth epoch
         print(f'Epoch {epoch:03d} | Loss: {loss:.4f} | Train: {train_acc:.4f} | Val: {val_acc:.4f} | Test: {test_acc:.4f}')
+
+torch.save(model.state_dict(), "../models/music_gnn_model.pth") # save model into 'models' file for later use in other scripts
+print("Model saved to models/music_gnn_model.pth")
+torch.save(data, "../models/music_gnn_data.pt") # save data as well for inference script to run on exact same test data as one we used for trained model

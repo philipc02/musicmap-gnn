@@ -16,5 +16,6 @@ Thumbs.db
 
 # Ignore large audio files folder
 /data/fma_small/
-# Keep large csv files only locally
+# Keep large csv/data files only locally
 data/fma_metadata/*.csv
+models/*.pt
