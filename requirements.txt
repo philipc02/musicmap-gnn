@@ -21,3 +21,9 @@ jupyter
 
 # Optional: Web interface
 streamlit
+
+# For audio loading and preprocessing
+librosa
+tqdm    # progress meter for loops
+torchopenl3
+soundfile
